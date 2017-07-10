@@ -10,10 +10,21 @@ import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
     public static final String TAG = "mjs's MainActivity";
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Log.d(TAG,"onCreate().........................................");
+        if (savedInstanceState != null){
+            String tempData = savedInstanceState.getString("data_key");
+            Log.d(TAG, tempData);
+        }
+        else {
+            Log.d(TAG, "saveInstanceState = null");
+        }
         Button startNormalActivity = (Button) findViewById(R.id.start_normal_activity);
         Button startDialogActivity = (Button) findViewById(R.id.start_dialog_activity);
         startNormalActivity.setOnClickListener(new View.OnClickListener(){
@@ -31,6 +42,16 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        String tempData = "some thing you just typed";
+        outState.putString("data_key", tempData);
+        Log.d(TAG, "onSaveInstanceState");
+    }
+
+
 
     @Override
     protected void onStart() {
